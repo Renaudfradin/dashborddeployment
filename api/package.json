@@ -1,0 +1,31 @@
+{
+  "name": "deployment-dashboard-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API du dashboard de déploiement multi-hébergeurs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch-path=src src/server.js",
+    "test": "node --test",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.17.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "libsodium-wrappers": "^0.7.15"
+  },
+  "devDependencies": {
+    "prisma": "^6.17.1"
+  }
+}

@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: deployment_dashboard_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dashboard
+      POSTGRES_PASSWORD: dashboard
+      POSTGRES_DB: deployment_dashboard
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dashboard -d deployment_dashboard"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks:
+      - dashboard
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: deployment_dashboard_api
+    restart: unless-stopped
+    ports:
+      - "8024:8000"
+    environment:
+      DATABASE_URL: postgresql://dashboard:dashboard@postgres:5432/deployment_dashboard
+      JWT_SECRET: dev-dashboard-local-jwt-secret-change-me
+      CREDENTIALS_ENCRYPTION_KEY: local-dev-encryption-key-32b!!
+      ALLOW_REGISTRATION: "true"
+      CORS_ORIGIN: http://localhost:3024
+      PORT: "8000"
+      NODE_ENV: development
+    volumes:
+      - ./api:/app
+      - api_node_modules:/app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - dashboard
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: deployment_dashboard_web
+    restart: unless-stopped
+    ports:
+      - "3024:3000"
+    environment:
+      VITE_API_URL: http://localhost:8024
+    volumes:
+      - ./web:/app
+      - web_node_modules:/app/node_modules
+    depends_on:
+      - api
+    networks:
+      - dashboard
+
+volumes:
+  pgdata:
+  api_node_modules:
+  web_node_modules:
+
+networks:
+  dashboard:
