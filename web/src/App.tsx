@@ -36,9 +36,7 @@ export default function App() {
         path="/connections/:connectionId/projects/:projectId"
         element={
           <ProtectedRoute>
-            <Layout>
-              <ProjectPage />
-            </Layout>
+            <ProjectPage />
           </ProtectedRoute>
         }
       />
