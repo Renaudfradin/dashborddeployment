@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const providerRoutes = require('./routes/providers');
 const connectionRoutes = require('./routes/connections');
 const overviewRoutes = require('./routes/overview');
+const telemetryRoutes = require('./routes/telemetry');
 const { sendError } = require('./lib/errors');
 
 function createApp() {
@@ -38,6 +39,7 @@ function createApp() {
   app.use('/api/providers', providerRoutes);
   app.use('/api/connections', connectionRoutes);
   app.use('/api/overview', overviewRoutes);
+  app.use('/api/telemetry', telemetryRoutes);
 
   app.use((err, _req, res, _next) => {
     sendError(res, err);

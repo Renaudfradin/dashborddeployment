@@ -94,3 +94,107 @@ export type AuthUser = {
   email: string
   name: string | null
 }
+
+export type TelemetryError = {
+  connectionId: string
+  provider: string
+  label: string
+  message: string
+}
+
+export type FleetCell = {
+  id: string
+  name: string
+  provider: string
+  status: string | null
+  state: 'nominal' | 'degraded' | 'fault'
+}
+
+export type FleetSummary = {
+  total: number
+  healthy: number
+  degraded: number
+  errorCount: number
+  uptime: number | null
+  providers: { name: string; count: number }[]
+  connectionCount: number
+  cells: FleetCell[]
+  errors: TelemetryError[]
+  services: ServiceRow[]
+}
+
+export type MeshService = ServiceRow & {
+  latest: Deployment | null
+  logSample: LogLine[]
+}
+
+export type ServiceMesh = {
+  total: number
+  nominal: number
+  degraded: number
+  errors: TelemetryError[]
+  services: MeshService[]
+}
+
+export type BoardDeployment = Deployment & {
+  connectionId: string
+  projectId: string
+  projectName: string
+  provider: string
+  providerName: string
+  durationMs: number | null
+}
+
+export type DeploymentBoard = {
+  inFlight: number
+  queued: number
+  history: BoardDeployment[]
+  errors: TelemetryError[]
+  projects: ServiceRow[]
+}
+
+export type TailLine = LogLine & {
+  provider: string
+  providerName: string
+  projectName: string
+  connectionId: string
+  projectId: string
+  deploymentId: string
+}
+
+export type LogTail = {
+  total: number
+  levels: { info: number; warn: number; error: number; debug: number; other: number }
+  linesPerSec: number | null
+  lines: TailLine[]
+  errors: TelemetryError[]
+}
+
+export type VaultVariable = EnvVar & {
+  connectionId: string
+  projectId: string
+  projectName: string
+  provider: string
+  providerName: string
+  canWrite: boolean
+}
+
+export type VaultSnapshot = {
+  total: number
+  readable: number
+  masked: number
+  driftCount: number
+  drifts: { connectionId: string; key: string; reason: 'missing' | 'mismatch' }[]
+  variables: VaultVariable[]
+  errors: TelemetryError[]
+  projects: ServiceRow[]
+}
+
+export type ActivityEvent = {
+  at: string | null
+  kind: string
+  title: string
+  detail: string
+  connectionId: string
+  projectId: string | null
+}

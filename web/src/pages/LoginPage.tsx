@@ -28,11 +28,11 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <form onSubmit={onSubmit} className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl">
+      <form onSubmit={onSubmit} className="w-full max-w-md rounded-2xl border border-line bg-panel p-8">
         <div className="mb-6">
-          <div className="font-mono text-xs uppercase tracking-[0.2em] text-teal-400">Hébergement</div>
-          <h1 className="mt-1 text-2xl font-semibold text-white">Dashboard déploiements</h1>
-          <p className="mt-2 text-sm text-slate-400">Connectez-vous pour voir vos services déployés.</p>
+          <div className="font-mono text-xs uppercase tracking-[0.2em] text-primary">PulseOps</div>
+          <h1 className="mt-1 text-2xl font-semibold text-white">Mission control</h1>
+          <p className="mt-2 text-sm text-slate-400">Connectez-vous pour ouvrir le plan de contrôle.</p>
         </div>
         {error && <div className="mb-4 rounded-md border border-red-800 bg-red-950/50 px-3 py-2 text-sm text-red-200">{error}</div>}
         <label className="mb-3 block text-sm text-slate-300">
@@ -43,11 +43,11 @@ export default function LoginPage() {
           Mot de passe
           <input className={fieldClass} type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />
         </label>
-        <button type="submit" disabled={loading} className="w-full rounded-md bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-500 disabled:opacity-60">
+        <button type="submit" disabled={loading} className="w-full rounded-md bg-primary px-4 py-2 font-medium text-white disabled:opacity-60">
           {loading ? 'Connexion…' : 'Se connecter'}
         </button>
         <p className="mt-4 text-sm text-slate-400">
-          Pas de compte ? <Link className="text-teal-300 hover:text-teal-200" to="/register">Créer un compte</Link>
+          Pas de compte ? <Link className="text-primary" to="/register">Créer un compte</Link>
         </p>
       </form>
     </div>

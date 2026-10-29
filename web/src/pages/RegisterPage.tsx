@@ -29,9 +29,9 @@ export default function RegisterPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <form onSubmit={onSubmit} className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl">
+      <form onSubmit={onSubmit} className="w-full max-w-md rounded-2xl border border-line bg-panel p-8">
         <div className="mb-6">
-          <div className="font-mono text-xs uppercase tracking-[0.2em] text-teal-400">Hébergement</div>
+          <div className="font-mono text-xs uppercase tracking-[0.2em] text-primary">PulseOps</div>
           <h1 className="mt-1 text-2xl font-semibold text-white">Créer un compte</h1>
           <p className="mt-2 text-sm text-slate-400">Chaque compte relie ses propres hébergeurs.</p>
         </div>
@@ -48,11 +48,11 @@ export default function RegisterPage() {
           Mot de passe
           <input className={fieldClass} type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} autoComplete="new-password" />
         </label>
-        <button type="submit" disabled={loading} className="w-full rounded-md bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-500 disabled:opacity-60">
+        <button type="submit" disabled={loading} className="w-full rounded-md bg-primary px-4 py-2 font-medium text-white disabled:opacity-60">
           {loading ? 'Création…' : 'Créer le compte'}
         </button>
         <p className="mt-4 text-sm text-slate-400">
-          Déjà inscrit ? <Link className="text-teal-300 hover:text-teal-200" to="/login">Se connecter</Link>
+          Déjà inscrit ? <Link className="text-primary" to="/login">Se connecter</Link>
         </p>
       </form>
     </div>
